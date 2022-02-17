@@ -1,7 +1,7 @@
 import 'react';
 
 export default function PomodoroHeader({ className, isTimerRunning, setPomodoro, setShortBreak, setLongBreak }) {
-    const commonButtonClass = "text-4xl text-white font-bold py-2 px-4 rounded text-ellipsis overflow-hidden max-w-fit whitespace-nowrap text-5vw disabled:opacity-50"
+    const commonButtonClass = "text-4xl text-white font-bold py-2 px-4 rounded text-ellipsis overflow-hidden max-w-fit whitespace-nowrap text-4.5vw disabled:opacity-50"
     return (
         <section className={'pomodoro-header ' + className}>
             <button disabled={isTimerRunning} 

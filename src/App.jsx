@@ -2,46 +2,80 @@ import { useState, useEffect } from 'react'
 import PomodoroWrapper from './components/pomodoro-wrapper';
 import PomodoroHeader from './components/pomodoro-header';
 import PomodoroContent from './components/pomodoro-content';
-import './App.css';
 import PomodoroFooter from './components/pomodoro-footer';
+import './App.css';
 
 function App() {
-  const [time, setTime] = useState(0);
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const minute = 1000 * 60;
+  const [time, set_time] = useState(0);
+  const [isTimerRunning, set_isTimerRunning] = useState(false);
+  const [audio, set_audio] = useState(null);
+  const [pulse, set_pulse] = useState(true);
+
+  const second = 1000;
+  const minute = second * 60;
+
+  const setPomodoroTickAudio = () => {
+    var new_audio = new Audio('./sounds/pomodoro_tick.mp3');
+    new_audio.loop = true;
+    set_audio(new_audio);
+  };
+
+  const setPomodoroEndAudio = () => {
+    var new_audio = new Audio('./sounds/pomodoro_end.mp3');
+    new_audio.loop = false;
+    new_audio.play();
+    set_audio(audio);
+  };
 
   const setPomodoroTime = () => {
     let newTime = (minute * 25);
-    setTime(newTime);
+    set_time(newTime);
+    setPomodoroTickAudio();
   };
   
   const setShortBreak = () => {
     let newTime = (minute * 5);
-    setTime(newTime);
+    set_time(newTime);
+    setPomodoroTickAudio();
   };
 
   const setLongBreak = () => {
     let newTime = (minute * 15);
-    setTime(newTime);
+    set_time(newTime);
+    setPomodoroTickAudio();
   };
 
   const onTimerAction = () => {
     if (isTimerRunning) {
-      setTime(0);
+      set_time(0);
+      if (audio) {
+        audio.pause();
+      }
     }
-    setIsTimerRunning(isTimerRunning => !isTimerRunning);
+    else {
+      if (audio) {
+        audio.play();
+      }
+    }
+    set_isTimerRunning(isTimerRunning => !isTimerRunning);
   };
+
   useEffect(() => {
     let interval = null;
+
     if (isTimerRunning) {
       if (time >= 1000) {
         interval = setInterval(() => {
-          setTime(time => time - 1000);
+          set_time(time => time - 1000);
         }, 1000);
+        set_pulse(!pulse);
       }
-      else if (interval) {
+      else  {
+        // Finished
         clearInterval(interval);
-        setIsTimerRunning(false); 
+        set_istimerRunning(false); 
+        audio.pause();
+        setPomodoroEndAudio();
       }
     }
     else if (!isTimerRunning) {
@@ -58,7 +92,9 @@ function App() {
                       setPomodoro={setPomodoroTime} 
                       setShortBreak={setShortBreak}
                       setLongBreak={setLongBreak} />
-      <PomodoroContent className="h-3/5 flex justify-center justify-items-center content-center items-center" time={time} />
+      <PomodoroContent className="h-3/5 flex justify-center justify-items-center content-center items-center" 
+                      time={time} 
+                      pulse={pulse ? ":" : " "} />
       <PomodoroFooter className="h-1/5 flex justify-center justify-items-center content-center items-center text-4xl"
                       time={time}
                       onTimerAction={onTimerAction} 

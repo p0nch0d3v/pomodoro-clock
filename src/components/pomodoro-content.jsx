@@ -1,6 +1,6 @@
 import 'react';
 
-export default function PomodoroContent ({ className, time }) {
+export default function PomodoroContent ({ className, time, pulse }) {
     const totalSeconds = time / 1000;
     const minutes =  Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
@@ -13,7 +13,7 @@ export default function PomodoroContent ({ className, time }) {
     return (
         <section className={"pomodoro-content " + className}>
             <section className="text-48vh text-center">
-                {`${formatDigit(minutes)}:${formatDigit(seconds)}`}
+                {`${formatDigit(minutes)}${pulse}${formatDigit(seconds)}`}
             </section>
         </section>
     );
