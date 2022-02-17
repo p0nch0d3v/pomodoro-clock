@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  home-dashboard:
+    image: node:lts
+    command: >
+      bash -c "cd /app &&
+               npm install &&
+               npm run dev"
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
