@@ -9,7 +9,7 @@ module.exports = {
         fontSize: {
           "4.5vw": "4.5vw",
           "6vw": "6vw",
-          "48vh": "48vh"
+          "50vh": "50vh"
         }
       }
   },
