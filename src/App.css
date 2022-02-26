@@ -1,4 +1,29 @@
 #root {
     margin: 0;
     padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+}
+.pomodoro {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.pomodoro .pomorodo-wrapper {
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.pomodoro .pomorodo-wrapper .icon {
+    color: #FFFFFF;
+    
 }
