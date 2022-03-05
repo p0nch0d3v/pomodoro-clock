@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faStopwatch, 
+  faCancel, 
+  faPlay, 
+  faStop } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
-import StopWatch from './images/stop-watch.jsx';
 
 function App() {
   const [time, set_time] = useState(0);
@@ -109,64 +114,54 @@ function App() {
   return (
     <div className="pomodoro container-fluid">
       <div className="pomorodo-wrapper row">
-        <StopWatch className={commonClasses + "icon"} color={'#FFFFFF'} />
-        <span className={commonClasses + "mb-1 mt-1"}>
-          <button className="btn btn-danger w-75"
-                  disabled={isTimerRunning} 
-                  onClick={setPomodoroTime}>25 m</button>
-        </span>
-        <span className={commonClasses + "mb-1 mt-1"}>
-          <button disabled={isTimerRunning}
-                  className="btn btn-primary w-75"
-                  onClick={setShortBreak}>05 m</button>
-        </span>
-        <span className={commonClasses + "mb-1 mt-1"}>
-          <button disabled={isTimerRunning} 
-                  className="btn btn-success w-75"
-                  onClick={setLongBreak}>15 m</button>
-        </span>
+        {time === 0 && <>
+          <span className={commonClasses + " icon"}>
+          <FontAwesomeIcon className="w-75" icon={faStopwatch} />
+          </span>
+          <span className={commonClasses + " mb-1"}>
+            <button className="timeSet btn btn-danger w-75"
+                    disabled={isTimerRunning} 
+                    onClick={setPomodoroTime}>25 m</button>
+          </span>
+          <span className={commonClasses + " mb-1 mt-1"}>
+            <button disabled={isTimerRunning}
+                    className="timeSet btn btn-primary w-75"
+                    onClick={setShortBreak}>05 m</button>
+          </span>
+          <span className={commonClasses + " mb-1 mt-1"}>
+            <button disabled={isTimerRunning} 
+                    className="timeSet btn btn-success w-75"
+                    onClick={setLongBreak}>15 m</button>
+          </span>
+        </>}
+        
         {time > 0 && 
-          <span>
-            `${formatDigit(minutes)}:${formatDigit(seconds)}`
+          <span className="col-12 time">
+            {formatDigit(minutes)}:{formatDigit(seconds)}
           </span>
         }
 
         { time > 0 && !isTimerRunning &&
-          <button className=""
-                  onClick={onCancelAction}>
-              Cancel
-          </button>
+          <span className={commonClasses}>
+            <button className="cancel btn btn-danger w-75"
+                    onClick={onCancelAction}>
+                    <FontAwesomeIcon icon={faCancel} />
+            </button>
+          </span>
         }
 
         { time > 0 && 
-        <button disabled={time <= 0} 
-                className=""
-                onClick={onTimerAction}>
-            {isTimerRunning ? 'Stop': 'Start'}
-        </button>
+          <span className={commonClasses}>
+            <button disabled={time <= 0} 
+                    className={'w-75 btn ' + (isTimerRunning ? 'stop btn-danger' : 'start btn-success')}
+                    onClick={onTimerAction}>
+                      <FontAwesomeIcon icon={isTimerRunning ? faStop : faPlay} />
+                
+            </button>
+          </span>
         }
       </div>
     </div>
-    // <PomodoroWrapper className="">
-    //   {!isTimerRunning && time === 0 && 
-    //   <PomodoroHeader className=""
-    //                   isTimerRunning={isTimerRunning}
-    //                   setPomodoro={setPomodoroTime} 
-    //                   setShortBreak={setShortBreak}
-    //                   setLongBreak={setLongBreak} /> 
-    //   }
-    //   { time > 0 && 
-    //   <PomodoroContent className="" 
-    //                   time={time} /> 
-    //   }
-    //   {(isTimerRunning || time > 0 )  && 
-    //   <PomodoroFooter className=""
-    //                   time={time}
-    //                   onTimerAction={onTimerAction} 
-    //                   onCancelAction={onCancelAction}
-    //                   isTimerRunning={isTimerRunning} /> 
-    //   }
-    // </PomodoroWrapper>
   )
 }
 
