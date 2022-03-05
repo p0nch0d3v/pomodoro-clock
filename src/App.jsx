@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react'
-import PomodoroWrapper from './components/pomodoro-wrapper';
-import PomodoroHeader from './components/pomodoro-header';
-import PomodoroContent from './components/pomodoro-content';
-import PomodoroFooter from './components/pomodoro-footer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faStopwatch, 
+  faCancel, 
+  faPlay, 
+  faStop } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 
 function App() {
   const [time, set_time] = useState(0);
   const [isTimerRunning, set_isTimerRunning] = useState(false);
   const [audio, set_audio] = useState(null);
-  const [pulse, set_pulse] = useState(true);
 
   const tickSound = new Audio('./sounds/pomodoro_tick.mp3');
   tickSound.preload = "auto";
@@ -18,6 +19,16 @@ function App() {
 
   const second = 1000;
   const minute = second * 60;
+
+  const totalSeconds = time / 1000;
+  const minutes =  Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  const formatDigit = (digit) => {
+      if (digit < 10) {
+          return `0${digit}`; 
+      }
+      return digit;
+  };
 
   const setPomodoroTickAudio = () => {
     var new_audio = tickSound;
@@ -98,27 +109,59 @@ function App() {
     return () => clearInterval(interval);
   }, [isTimerRunning, time]);
 
+  const commonClasses = "col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3";
+
   return (
-    <PomodoroWrapper className="text-white bg-black h-screen w-screen">
-      {!isTimerRunning && time === 0 && 
-      <PomodoroHeader className="h-2/5 m-0 p-0 flex justify-around justify-items-center content-around items-center"
-                      isTimerRunning={isTimerRunning}
-                      setPomodoro={setPomodoroTime} 
-                      setShortBreak={setShortBreak}
-                      setLongBreak={setLongBreak} /> 
-      }
-      { time > 0 && 
-      <PomodoroContent className="h-3/5 flex justify-center justify-items-center content-center items-center" 
-                      time={time} /> 
-      }
-      {(isTimerRunning || time > 0 )  && 
-      <PomodoroFooter className="h-2/5 flex justify-center justify-items-center content-center items-center text-4xl"
-                      time={time}
-                      onTimerAction={onTimerAction} 
-                      onCancelAction={onCancelAction}
-                      isTimerRunning={isTimerRunning} /> 
-      }
-    </PomodoroWrapper>
+    <div className="pomodoro container-fluid">
+      <div className="pomorodo-wrapper row">
+        {time === 0 && <>
+          <span className={commonClasses + " icon"}>
+          <FontAwesomeIcon className="w-75" icon={faStopwatch} />
+          </span>
+          <span className={commonClasses + " mb-1"}>
+            <button className="timeSet btn btn-danger w-75"
+                    disabled={isTimerRunning} 
+                    onClick={setPomodoroTime}>25 m</button>
+          </span>
+          <span className={commonClasses + " mb-1 mt-1"}>
+            <button disabled={isTimerRunning}
+                    className="timeSet btn btn-primary w-75"
+                    onClick={setShortBreak}>05 m</button>
+          </span>
+          <span className={commonClasses + " mb-1 mt-1"}>
+            <button disabled={isTimerRunning} 
+                    className="timeSet btn btn-success w-75"
+                    onClick={setLongBreak}>15 m</button>
+          </span>
+        </>}
+        
+        {time > 0 && 
+          <span className="col-12 time">
+            {formatDigit(minutes)}:{formatDigit(seconds)}
+          </span>
+        }
+
+        { time > 0 && !isTimerRunning &&
+          <span className={commonClasses}>
+            <button className="cancel btn btn-danger w-75"
+                    onClick={onCancelAction}>
+                    <FontAwesomeIcon icon={faCancel} />
+            </button>
+          </span>
+        }
+
+        { time > 0 && 
+          <span className={commonClasses}>
+            <button disabled={time <= 0} 
+                    className={'w-75 btn ' + (isTimerRunning ? 'stop btn-danger' : 'start btn-success')}
+                    onClick={onTimerAction}>
+                      <FontAwesomeIcon icon={isTimerRunning ? faStop : faPlay} />
+                
+            </button>
+          </span>
+        }
+      </div>
+    </div>
   )
 }
 

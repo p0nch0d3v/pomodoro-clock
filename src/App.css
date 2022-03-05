@@ -1,4 +1,59 @@
 #root {
     margin: 0;
     padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+}
+.pomodoro {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.pomodoro .pomorodo-wrapper {
+    text-align: center;
+    /* width: 100vw; */
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    align-content: space-around;
+    justify-content: center;
+    justify-items: center;
+}
+
+.pomodoro .pomorodo-wrapper .icon {
+    color: #FFFFFF;
+    font-size: 25vh;
+}
+
+.pomodoro .pomorodo-wrapper .timeSet {
+    height: 25%;
+    font-size: 10vw;
+}
+
+.pomodoro .pomorodo-wrapper .time {
+    color: #FFFFFF;
+}
+
+@media (min-aspect-ratio: 2/3) {
+    /* Portrait */
+    .pomodoro .pomorodo-wrapper .time {
+        font-size: 30vh;
+    }
+}
+
+@media (max-aspect-ratio: 3/2) {
+    /* Landscape */
+    .pomodoro .pomorodo-wrapper .time {
+        font-size: 30vw;
+    }
+}
+
+.pomodoro .pomorodo-wrapper .cancel,
+.pomodoro .pomorodo-wrapper .start,
+.pomodoro .pomorodo-wrapper .stop {
+    height: 25%;
+    font-size: 10vh;
 }

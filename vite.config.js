@@ -21,7 +21,7 @@ export default defineConfig({
       strategies: 'generateSW',
       manifest: {
         name: "Pomodoro Clock",
-        short_name: "PomoClock",
+        short_name: "Pomodoro Clock",
         description: "Pomodoro Clock",
         lang: "en-US",
         start_url: "/index.html",
