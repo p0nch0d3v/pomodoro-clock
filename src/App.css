@@ -4,23 +4,27 @@
     width: 100vw;
     height: 100vh;
     background-color: #000000;
+    overflow: hidden;
 }
 .pomodoro {
     margin: 0;
     padding: 0;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 
 .pomodoro .pomorodo-wrapper {
     text-align: center;
-    /* width: 100vw; */
+    width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
     align-content: space-around;
     justify-content: center;
     justify-items: center;
+    overflow: hidden;
+    margin: 0;
 }
 
 .pomodoro .pomorodo-wrapper .icon {
