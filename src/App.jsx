@@ -119,19 +119,19 @@ function App() {
           <FontAwesomeIcon className="w-75" icon={faStopwatch} />
           </span>
           <span className={commonClasses + " mb-1"}>
-            <button className="timeSet btn btn-danger w-75"
+            <button className="timeSet btn btn-danger w-100"
                     disabled={isTimerRunning} 
-                    onClick={setPomodoroTime}>25 m</button>
+                    onClick={setPomodoroTime}>25m</button>
           </span>
           <span className={commonClasses + " mb-1 mt-1"}>
             <button disabled={isTimerRunning}
-                    className="timeSet btn btn-primary w-75"
-                    onClick={setShortBreak}>05 m</button>
+                    className="timeSet btn btn-primary w-100"
+                    onClick={setShortBreak}>05m</button>
           </span>
           <span className={commonClasses + " mb-1 mt-1"}>
             <button disabled={isTimerRunning} 
-                    className="timeSet btn btn-success w-75"
-                    onClick={setLongBreak}>15 m</button>
+                    className="timeSet btn btn-success w-100"
+                    onClick={setLongBreak}>15m</button>
           </span>
         </>}
         

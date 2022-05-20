@@ -1,4 +1,4 @@
-FROM node:lts as build-step
+FROM node:lts-alpine as build-step
 
 RUN mkdir /app
 WORKDIR /app
