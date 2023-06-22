@@ -26,14 +26,20 @@ export default defineConfig({
         lang: "en-US",
         start_url: "/index.html",
         display: "fullscreen",
-        background_color: "black",
-        theme_color: "black",
+        background_color: "#000000",
+        theme_color: "#000000",
         icons: [
           {
             "src": "/images/icon-144.png",
             "sizes": "144x144",  
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "any"
+          },
+          {
+            "src": "/images/icon-144.png",
+            "sizes": "144x144",  
+            "type": "image/png",
+            "purpose": "maskable"
           }
         ],
         version: "0.1.1"
