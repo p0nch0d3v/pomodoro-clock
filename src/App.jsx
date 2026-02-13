@@ -11,6 +11,7 @@ function App() {
   const [time, set_time] = useState(0);
   const [isTimerRunning, set_isTimerRunning] = useState(false);
   const [audio, set_audio] = useState(null);
+  const [systemTime, setSystemTime] = useState(':');
 
   const tickSound = new Audio('./sounds/pomodoro_tick.mp3');
   tickSound.preload = "auto";
@@ -109,14 +110,21 @@ function App() {
     return () => clearInterval(interval);
   }, [isTimerRunning, time]);
 
+  useEffect(()=>{
+    setInterval(()=>{
+      const d = new Date();
+      setSystemTime(`${formatDigit(d.getHours())}:${formatDigit(d.getMinutes())}`);
+    }, 1000)
+  }, [])
+
   const commonClasses = "col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3";
 
   return (
     <div className="pomodoro container-fluid">
       <div className="pomorodo-wrapper row">
         {time === 0 && <>
-          <span className={commonClasses + " icon"}>
-          <FontAwesomeIcon className="w-75" icon={faStopwatch} />
+          <span className={commonClasses + " icon system-time"}>
+            {systemTime}
           </span>
           <span className={commonClasses + " mb-1"}>
             <button className="timeSet btn btn-danger w-100"
@@ -136,8 +144,13 @@ function App() {
         </>}
         
         {time > 0 && 
-          <span className="col-12 time">
-            {formatDigit(minutes)}:{formatDigit(seconds)}
+          <span className='col-12 time-wrapper'>
+            <span className="col-12 col-sm-6 col-md-12 system-time">
+            {systemTime}
+            </span>
+            <span className="col-12 col-sm-6 col-md-12 time">
+              {formatDigit(minutes)}:{formatDigit(seconds)}
+            </span>
           </span>
         }
 

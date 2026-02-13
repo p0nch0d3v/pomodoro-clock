@@ -28,8 +28,10 @@
 }
 
 .pomodoro .pomorodo-wrapper .icon {
-    color: #FFFFFF;
-    font-size: 25vh;
+    background-image: url('/images/icon-144.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .pomodoro .pomorodo-wrapper .timeSet {
@@ -37,8 +39,22 @@
     font-size: 10vw;
 }
 
-.pomodoro .pomorodo-wrapper .time {
+.pomodoro .pomorodo-wrapper .time-wrapper {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.pomodoro .pomorodo-wrapper .time-wrapper .time {
     color: #FFFFFF;
+    
+}
+
+.pomodoro .pomorodo-wrapper .system-time {
+    color: #fffd8d;
+    font-size: 10vw;
 }
 
 @media (min-aspect-ratio: 2/3) {
@@ -46,12 +62,18 @@
     .pomodoro .pomorodo-wrapper .time {
         font-size: 30vh;
     }
+    .pomodoro .pomorodo-wrapper .system-time {
+        font-size: 10vw;
+    }
 }
 
 @media (max-aspect-ratio: 3/2) {
     /* Landscape */
     .pomodoro .pomorodo-wrapper .time {
         font-size: 30vw;
+    }
+    .pomodoro .pomorodo-wrapper .system-time {
+        font-size: 10vh;
     }
 }
 
